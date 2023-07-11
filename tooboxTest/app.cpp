@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QColorDialog>
 
 using namespace std;
 
@@ -18,6 +19,7 @@ using namespace std;
  */
 app::app(QWidget *parent): QMainWindow(parent), ui(new Ui::app)
 {
+    this->colorDisplay=Qt::red;
     this->pictureToDisplay = QPixmap(this->pathImage);
     ui->setupUi(this);
 
@@ -64,6 +66,7 @@ void app::checkUp(){
         // Mise à jour des différents paramètres
         this->ui->drawing->updateImage(false);
         this->isThereAnImage=false;
+        //this->ui->drawing->draw(true);
         pathImage="";
 
         // Suppresion du chemin
@@ -76,9 +79,11 @@ void app::checkUp(){
         this->ui->pinceau->setChecked(false);
         this->ui->freeHand->setChecked(false);
         this->ui->polygone->setChecked(false);
+
             // Impossibilité de sélectionner un mode
         this->ui->selection->setCheckable(false);
         this->ui->eraser->setCheckable(false);
+
             // Impossibilité de sélectionner un mode
         this->ui->pinceau->setCheckable(false);
         this->ui->freeHand->setCheckable(false);
@@ -95,6 +100,7 @@ void app::checkUp(){
         // Mise à jour des différents paramètres
         this->ui->drawing->updateImage(true);
         this->isThereAnImage=true;
+        //this->ui->drawing->draw(false);
         this->pictureToDisplay = QPixmap(this->pathImage);
 
         //QImage image(this->pathImage);
@@ -125,10 +131,12 @@ void app::checkUp(){
             // Définition de l'outil et du mode au début
         this->ui->selection->setChecked(true);
         this->ui->pinceau->setChecked(true);
+
             // Mise à disposition des outils
         this->ui->pinceau->setCheckable(true);
         this->ui->freeHand->setCheckable(true);
         this->ui->polygone->setCheckable(true);
+
             // Mise à disposition des modes
         this->ui->selection->setCheckable(true);
         this->ui->eraser->setCheckable(true);
@@ -171,6 +179,7 @@ void app::on_selection_clicked()
     if(this->isThereAnImage){
         this->ui->drawing->clearToolModes();
         this->ui->drawing->updateMode(true);
+        this->ui->drawing->changeColorTool(Qt::black);
     }
 }
 
@@ -181,7 +190,8 @@ void app::on_eraser_clicked()
 {
     if(this->isThereAnImage){
         this->ui->drawing->clearToolModes();
-        this->ui->drawing->eraseMode(true);
+        this->ui->drawing->updateMode(true);
+        this->ui->drawing->changeColorTool(Qt::white);
     }
 }
 
@@ -249,5 +259,13 @@ void app::on_polygone_clicked()
 void app::on_update_clicked()
 {
     this->ui->apercu->setPixmap(this->ui->drawing->returnMask().scaled(this->ui->apercu->width(),this->ui->apercu->height(),Qt::KeepAspectRatio));
+}
+
+
+void app::on_colorButton_clicked()
+{
+    QColor color = QColorDialog::getColor(this->colorDisplay,nullptr,"Pouet");
+    this->colorDisplay=color;
+    this->ui->drawing->changeColorDisplay(color);
 }
 

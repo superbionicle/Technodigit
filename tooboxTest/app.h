@@ -37,6 +37,8 @@ private slots:
 
     void on_update_clicked();
 
+    void on_colorButton_clicked();
+
 private:
     Ui::app *ui;
     // Booléens
@@ -45,6 +47,8 @@ private:
     bool canIDraw;
     // QPixmap
     QPixmap pictureToDisplay;
+    // QColor
+    QColor colorDisplay;
     // QString
     QString pathImage = "/Users/arthur/Downloads/IMG_7245.jpg";
     QButtonGroup* tools;

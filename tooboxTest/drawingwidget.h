@@ -86,6 +86,21 @@ public:
      * @return this->mask : masque que l'on génère
      */
     QBitmap returnMask(){return(this->mask);}
+    /**
+     * @brief changeColorTool : permet de changer la couleur du mode d'outils
+     * @param color : QColor pour désigner le dessin ou la gomme {Qt::white, Qt::black}
+     */
+    void changeColorTool(QColor color){this->colorTool=color;}
+    /**
+     * @brief changeColorDisplay : permet de changer la couleur d'affichage des tracés
+     * @param color
+     */
+    void changeColorDisplay(QColor color){this->color=color;}
+    /**
+     * @brief draw : permet de savoir si on peut utiliser les outils ou non
+     * @param draw : booléen
+     */
+    void draw(bool draw){this->canIDraw=draw;}
 private:
     // QPoints
     QPoint startPos;
@@ -104,7 +119,8 @@ private:
     // QVector
     QVector<QRect> rectangles;
     // paintEvent
-    QColor color=Qt::red;
+    QColor color;
+    QColor colorTool;
     QPixmap pictureToDisplay;
     QPainter painter;
     QPixmap pixmap;
