@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPainter>
 #include <QButtonGroup>
+#include "drawingwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class app; }
@@ -34,10 +35,9 @@ private slots:
     void on_freeHand_clicked();
     void on_polygone_clicked();
     void on_eraser_clicked();
-
     void on_update_clicked();
-
     void on_colorButton_clicked();
+    void on_valid_clicked();
 
 private:
     Ui::app *ui;

@@ -228,6 +228,7 @@ void app::on_transparence_valueChanged(int value)
  */
 void app::on_cancel_clicked()
 {
+    cout<<"Reset"<<endl;
     this->ui->drawing->clean();
 }
 
@@ -258,14 +259,26 @@ void app::on_polygone_clicked()
  */
 void app::on_update_clicked()
 {
+    cout<<"MàJ"<<endl;
     this->ui->apercu->setPixmap(this->ui->drawing->returnMask().scaled(this->ui->apercu->width(),this->ui->apercu->height(),Qt::KeepAspectRatio));
 }
 
-
+/**
+ * @brief app::on_colorButton_clicked : permet de sélectionner la couleur des tracés à afficher
+ */
 void app::on_colorButton_clicked()
 {
     QColor color = QColorDialog::getColor(this->colorDisplay,nullptr,"Pouet");
     this->colorDisplay=color;
     this->ui->drawing->changeColorDisplay(color);
+}
+
+
+void app::on_valid_clicked()
+{
+    //QFile file("mask.png");
+    //file.open(QIODevice::WriteOnly);
+    cout<<"Enregistrement"<<endl;
+    //this->ui->drawing->returnMask().save("mask.png","PNG");
 }
 
